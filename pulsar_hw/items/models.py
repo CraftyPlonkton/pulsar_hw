@@ -32,8 +32,8 @@ class Item(models.Model):
     def save(self):
         super().save()
         if self.image:
-            path, ext = self.get_path_and_extension()
-            webp_image = Image.open(path + ext)
+            path, ext = os.path.splitext(self.image.path)
+            webp_image = Image.open(self.image)
             webp_image.save(path + '.webp', format='webp')
 
     def __str__(self):
